@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng deploy --repo=https://github.com/kareemarafa/contacts-list.git --email=k4ho@live.com --base-href=https://kareemarafa.github.io/contacts-list/"
   },
   "private": true,
   "dependencies": {
