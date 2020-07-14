@@ -1,25 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Inbox
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
-  </ion-list>
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+        </ion-toolbar>
+    </ion-header>
+
+    <div style="position: fixed; z-index: 9999; display: flex; flex-direction: column; padding: 0 5px;
+    margin: 25% 5%; right: 0; background: rgba(0,0,0,0.5); color: #fff; align-items: center; border-radius: 10px">
+        <p style="margin: 5px 0; font-weight: bold"
+           *ngFor="let contact of contacts | groupBy: 'group' | keyvalue"
+           (click)="scroll(contact.key)">
+            {{contact.key}}
+        </p>
+    </div>
+
+
+    <ion-list>
+        <ion-item-group>
+            <ion-item-divider color="light" (click)="presentModal()">
+                Add new Contact
+                <ion-icon  slot="end" name="add-outline"></ion-icon>
+            </ion-item-divider>
+            <ion-list-header>
+                <ion-label>
+                    Recent Contacts
+                </ion-label>
+            </ion-list-header>
+            <ng-container *ngFor="let contact of recentContacts">
+                <ion-item>
+                    {{contact.firstName}} {{contact.lastName}}
+                </ion-item>
+            </ng-container>
+
+            <ion-list-header>
+                <ion-label>My Contacts</ion-label>
+            </ion-list-header>
+            <ng-container *ngFor="let contact of contacts | groupBy: 'group' | keyvalue">
+                <ion-item-divider *ngIf="contact.key !== '#'" color="light" id="contact-group-{{contact.key}}">{{contact.key}}</ion-item-divider>
+                <ng-container *ngIf="contact.key !== '#'">
+                    <ion-item *ngFor="let item of contact.value">{{item.firstName}} {{item.lastName}}</ion-item>
+                </ng-container>
+            </ng-container>
+        </ion-item-group>
+    </ion-list>
 </ion-content>

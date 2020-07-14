@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="secondary">
+            <ion-button (click)="back()">
+                <ion-icon slot="icon-only" color="dark" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Add new Contact</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="form" (ngSubmit)="addNewContact()">
+        <ion-list>
+            <ion-item>
+                <ion-label position="floating">First name</ion-label>
+                <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Last name</ion-label>
+                <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <div style="display: flex">
+                    <div style="    flex: 2;display: flex;flex-direction: column;">
+                        <ion-select placeholder="Code">
+                            <ion-select-option value="f">+20</ion-select-option>
+                            <ion-select-option value="m">+10</ion-select-option>
+                        </ion-select>
+                    </div>
+
+                    <div style="flex: 3;display: flex;flex-direction: column;">
+                        <ion-input formControlName="phone" placeholder="Phone"></ion-input>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input formControlName="email"></ion-input>
+            </ion-item>
+        </ion-list>
+
+
+        <div style="margin: 20px">
+            <ion-button expand="block" fill="solid" type="submit" [disabled]="!form.valid">
+                Save
+            </ion-button>
+            <ion-button expand="block" fill="outline" color="dark" (click)="back()">
+                Cancel
+            </ion-button>
+        </div>
+    </form>
+</ion-content>
